@@ -4,8 +4,8 @@ import { format } from "date-fns";
 const DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
 
 export function createBlocks(start: Date, end: Date) {
-    const numberOfIndicators = 1 + Math.floor(Math.random() * 3);
-    const numberOfObservations = 50 + Math.floor(Math.random() * 50);
+    const numberOfIndicators = 1 + Math.floor(Math.random() * 2);
+    const numberOfObservations = 10 + Math.floor(Math.random() * 20);
 
     const identity = createIdentity();
     const indicators = Array.from({ length: numberOfIndicators }, () => createIndicator(start, end, identity));
