@@ -4,7 +4,13 @@ import { addMinutes } from 'date-fns';
 
 const app = express();
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
+    res.json({
+        status: 'ok'
+    });
+});
+
+app.get('/blocks', async (req: Request, res: Response) => {
     const startTime = req.query.startTime ? new Date(req.query.startTime as string) : addMinutes(new Date(), -15);
     const endTime = req.query.endTime ? new Date(req.query.endTime as string) : addMinutes(startTime, 15);
 
