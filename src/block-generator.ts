@@ -15,6 +15,25 @@ export function createBlocks(start: Date, end: Date) {
     blocks.sort((a ,b) => new Date(b.created).getTime() - new Date(a.created).getTime());
     return blocks;
 }
+export type Block = ReturnType<typeof createBlocks>[number];
+
+export function wrapBlocks(blocks: Block[]) {
+    return {
+        created: format(new Date(), DATE_FORMAT),
+        guid: uuid(),
+        event_type: "data.stub.blocked",
+        publisher: "stub",
+        integrity: "some-string",
+        privacy: [],
+        history: [],
+        payload: {
+            spec_version: "2.0",
+            id: `bundle--${uuid()}`,
+            type: "bundle",
+            objects: blocks,
+        }
+    }
+}
 
 function createIdentity() {
     return {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createBlocks = void 0;
+exports.wrapBlocks = exports.createBlocks = void 0;
 const uuid_1 = require("uuid");
 const date_fns_1 = require("date-fns");
 const DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
@@ -15,6 +15,24 @@ function createBlocks(start, end) {
     return blocks;
 }
 exports.createBlocks = createBlocks;
+function wrapBlocks(blocks) {
+    return {
+        created: (0, date_fns_1.format)(new Date(), DATE_FORMAT),
+        guid: (0, uuid_1.v4)(),
+        event_type: "data.stub.blocked",
+        publisher: "stub",
+        integrity: "some-string",
+        privacy: [],
+        history: [],
+        payload: {
+            spec_version: "2.0",
+            id: `bundle--${(0, uuid_1.v4)()}`,
+            type: "bundle",
+            objects: blocks,
+        }
+    };
+}
+exports.wrapBlocks = wrapBlocks;
 function createIdentity() {
     return {
         type: "identity",

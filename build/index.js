@@ -31,6 +31,17 @@ app.get('/blocks', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const data = (0, block_generator_1.createBlocks)(startTime, endTime);
     res.json(data);
 }));
+app.get('/file', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const startTime = req.query.startTime ? new Date(req.query.startTime) : (0, date_fns_1.addMinutes)(new Date(), -15);
+    const endTime = req.query.endTime ? new Date(req.query.endTime) : (0, date_fns_1.addMinutes)(startTime, 15);
+    if (startTime > endTime) {
+        res.status(400).json({ error: 'startTime must be before endTime' });
+        return;
+    }
+    const blocks = (0, block_generator_1.createBlocks)(startTime, endTime);
+    const data = (0, block_generator_1.wrapBlocks)(blocks);
+    res.json(data);
+}));
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
