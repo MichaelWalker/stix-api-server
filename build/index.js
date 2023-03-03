@@ -32,8 +32,11 @@ app.get('/blocks', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.json(data);
 }));
 app.get('/file', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const startTime = req.query.startTime ? new Date(req.query.startTime) : (0, date_fns_1.addMinutes)(new Date(), -15);
     const endTime = req.query.endTime ? new Date(req.query.endTime) : (0, date_fns_1.addMinutes)(startTime, 15);
+    const source = (_a = req.query.source) !== null && _a !== void 0 ? _a : "unknown";
+    console.log(`Request from ${source} for ${startTime} to ${endTime}`);
     if (startTime > endTime) {
         res.status(400).json({ error: 'startTime must be before endTime' });
         return;

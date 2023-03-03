@@ -26,6 +26,9 @@ app.get('/blocks', async (req: Request, res: Response) => {
 app.get('/file', async (req: Request, res: Response) => {
     const startTime = req.query.startTime ? new Date(req.query.startTime as string) : addMinutes(new Date(), -15);
     const endTime = req.query.endTime ? new Date(req.query.endTime as string) : addMinutes(startTime, 15);
+    const source = req.query.source as string ?? "unknown";
+
+    console.log(`Request from ${source} for ${startTime} to ${endTime}`);
 
     if (startTime > endTime) {
         res.status(400).json({ error: 'startTime must be before endTime' });
